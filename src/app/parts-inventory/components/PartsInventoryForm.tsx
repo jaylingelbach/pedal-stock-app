@@ -1,0 +1,159 @@
+'use client';
+
+import z from 'zod';
+import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Poppins } from 'next/font/google';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import ResistorFields from '@/app/parts-inventory/fields/ResistorFields';
+import CapacitorFields from '@/app/parts-inventory/fields/CapacitorFields';
+import QuantityField from '@/app/parts-inventory/fields/QuantityField';
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
+
+export function PartsInventoryForm() {
+  const onSubmit = (values: z.infer<typeof addPartSchema>) => {
+    console.log('submitted form');
+    console.log('errors', form.formState.errors);
+  };
+
+  const form = useForm<z.infer<typeof addPartSchema>>({
+    mode: 'onBlur',
+    resolver: zodResolver(addPartSchema),
+    defaultValues: {
+      type: 'resistor',
+      resistance: 0,
+      watts: 0.25,
+      unit: 'K',
+      qtyToAdjust: 1
+    }
+  });
+
+  const type = form.watch('type');
+
+  return (
+    <div className="min-h-screen bg-[#F4F4F0] flex justify-center">
+      <div className="w-full max-w-3xl px-4 py-8 lg:py-12">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <Link href="/">
+                <span
+                  className={cn('text-2xl font-semibold', poppins.className)}
+                >
+                  Brown Bear Parts Inventory
+                </span>
+              </Link>
+            </div>
+
+            {/* Card */}
+            <div className="bg-white rounded-xl border p-6 space-y-6 shadow-sm">
+              {/* Part Type Section */}
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-base text-muted-foreground">
+                        Part Type
+                      </FormLabel>
+                      <Select
+                        value={field.value ?? ''}
+                        onValueChange={(value) => {
+                          field.onChange(value);
+
+                          if (value === 'resistor') {
+                            form.reset({
+                              type: 'resistor',
+                              resistance: undefined,
+                              unit: 'K',
+                              watts: 0.25
+                            });
+                          }
+
+                          if (value === 'capacitor') {
+                            form.reset({
+                              type: 'capacitor',
+                              capacitorType: 'film',
+                              capacitance: undefined,
+                              voltageDc: 50,
+                              thicknessMm: 4.5,
+                              leadSpacingMm: 5,
+                              unit: 'nF'
+                            });
+                          }
+                        }}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a part type" />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent>
+                          <SelectItem value="resistor">Resistor</SelectItem>
+                          <SelectItem value="capacitor">Capacitor</SelectItem>
+                          <SelectItem value="transistor">Transistor</SelectItem>
+                          <SelectItem value="diode">Diode</SelectItem>
+                          <SelectItem value="ic">IC</SelectItem>
+                          <SelectItem value="connector">Connector</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Divider */}
+              <div className="border-t" />
+
+              {/* Dynamic Fields */}
+              <div className="space-y-6">
+                {type === 'resistor' && <ResistorFields form={form} />}
+                {type === 'capacitor' && <CapacitorFields form={form} />}
+              </div>
+
+              {/* QTY */}
+              <QuantityField
+                form={form}
+                name="qtyToAdjust"
+                label="Quantity To Add"
+              />
+            </div>
+
+            {/* Submit */}
+            <Button
+              type="submit"
+              size="lg"
+              className="text-base w-full bg-black text-white hover:bg-pink-400 hover:text-primary"
+            >
+              Add Part
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </div>
+  );
+}
