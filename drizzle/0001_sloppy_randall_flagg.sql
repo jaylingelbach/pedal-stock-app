@@ -1,0 +1,2 @@
+ALTER TABLE "bom_items" ADD CONSTRAINT "bom_items_quantity_required_check" CHECK ("bom_items"."quantity_required" > 0);--> statement-breakpoint
+ALTER TABLE "inventory_items" ADD CONSTRAINT "inventory_quantity_check" CHECK ("inventory_items"."quantity" > 0);

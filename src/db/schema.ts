@@ -4,8 +4,10 @@ import {
   numeric,
   serial,
   text,
-  index
+  index,
+  check
 } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 /**
  * -----------------------
@@ -91,9 +93,10 @@ export const inventory = pgTable(
 
     quantity: integer('quantity').notNull()
   },
-  (table) => ({
-    partIdx: index('inventory_part_idx').on(table.partId)
-  })
+  (table) => [
+    index('inventory_part_idx').on(table.partId),
+    check('inventory_quantity_check', sql`${table.quantity} > 0`)
+  ]
 );
 
 /**
@@ -128,8 +131,12 @@ export const bomItems = pgTable(
 
     quantityRequired: integer('quantity_required').notNull()
   },
-  (table) => ({
-    bomIdx: index('bom_items_bom_idx').on(table.bomId),
-    partIdx: index('bom_items_part_idx').on(table.partId)
-  })
+  (table) => [
+    index('bom_items_bom_idx').on(table.bomId),
+    index('bom_items_part_idx').on(table.partId),
+    check(
+      'bom_items_quantity_required_check',
+      sql`${table.quantityRequired} > 0`
+    )
+  ]
 );

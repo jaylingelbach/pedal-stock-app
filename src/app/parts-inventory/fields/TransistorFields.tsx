@@ -16,7 +16,7 @@ type Props = {
 /**
  * Render form fields for entering transistor part details.
  *
- * @param form - The `react-hook-form` instance (bound to `addPartSchema`) used to register and control the rendered fields.
+ * `@param` form - The `react-hook-form` instance (bound to `FormValues`) used to register and control the rendered fields
  * @returns A JSX element containing inputs for `partNumber`, `material`, `polarity`, and `package`
  */
 export default function TransistorFields({ form }: Props) {

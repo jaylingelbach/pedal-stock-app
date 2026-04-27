@@ -1,4 +1,3 @@
-
 import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 import TextSelectField from '@/components/forms/fields/TextSelectField';
@@ -19,7 +18,7 @@ type Props = {
 /**
  * Render form fields for adding a potentiometer, wired to the provided react-hook-form instance.
  *
- * @param form - A `UseFormReturn` instance whose form values conform to `addPartSchema`; each rendered field is registered under its `name` for that form.
+ * @param form - A `UseFormReturn` instance whose form values conform to `UseFormReturn<FormValues>`; each rendered field is registered under its `name` for that form.
  * @returns A JSX element containing labeled select/number-select inputs for potentiometer attributes (category, resistance, taper, shaft type, shaft diameter, and terminal type).
  */
 export default function PotentiometerFields({ form }: Props) {

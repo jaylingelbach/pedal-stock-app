@@ -18,7 +18,7 @@ type Props = {
  *
  * Renders inputs/selects bound to the provided form for `partNumber`, `diodeType`, `material`, and `package`.
  *
- * @param form - The react-hook-form `UseFormReturn` instance for the `addPartSchema` shape that manages field state and validation.
+ * @param form - The react-hook-form `UseFormReturn` instance for the `UseFormReturn<FormValues>` shape that manages field state and validation.
  * @returns A JSX element containing inputs and select controls for diode part entry.
  */
 export default function DiodeFields({ form }: Props) {
