@@ -8,7 +8,10 @@ import z from 'zod';
 
 const basePartSchema = z.object({
   qtyToAdjust: z
-    .number({ error: 'Required' })
+    .number({
+      error: (issue) =>
+        issue.input === undefined ? 'Required' : 'Must be a number'
+    })
     .int()
     .min(1, 'Must be at least 1')
 });
