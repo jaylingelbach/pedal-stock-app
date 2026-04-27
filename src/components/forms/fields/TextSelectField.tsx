@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 
 type Option = {
-  value: number;
+  value: string;
   label: string;
 };
 
@@ -27,7 +27,7 @@ type Props<TFormValues extends FieldValues> = {
   placeholder?: string;
   options: Option[];
 };
-export default function NumberSelectField<TFormValues extends FieldValues>({
+export default function TextSelectField<TFormValues extends FieldValues>({
   form,
   name,
   label,
@@ -44,8 +44,8 @@ export default function NumberSelectField<TFormValues extends FieldValues>({
             {label}
           </FormLabel>
           <Select
-            value={field.value?.toString() ?? ''}
-            onValueChange={(value) => field.onChange(Number(value))}
+            value={field.value ?? ''}
+            onValueChange={field.onChange}
           >
             <FormControl>
               <SelectTrigger className="w-full">

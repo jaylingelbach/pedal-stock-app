@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import z from 'zod';
 import { addPartSchema } from '@/modules/parts-inventory/schemas';
 import { UseFormReturn } from 'react-hook-form';
 

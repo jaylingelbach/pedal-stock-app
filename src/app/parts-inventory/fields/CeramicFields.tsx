@@ -1,24 +1,7 @@
-import { z } from 'zod';
+import z from 'zod';
 import { addPartSchema } from '@/modules/parts-inventory/schemas';
 import { UseFormReturn } from 'react-hook-form';
 
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form';
-
-import { Input } from '@/components/ui/input';
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import UnitSelectField from '@/components/forms/fields/UnitSelectField';
 import NumberInputField from '@/components/forms/fields/NumberInputField';
 import NumberSelectField from '@/components/forms/fields/NumberSelectField';

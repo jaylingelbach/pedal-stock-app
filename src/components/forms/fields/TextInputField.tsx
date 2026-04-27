@@ -1,4 +1,3 @@
-import { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
   FormField,
@@ -8,12 +7,14 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
+import { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
+
 type Props<TFormValues extends FieldValues> = {
   form: UseFormReturn<TFormValues>;
   name: FieldPath<TFormValues>;
   label: string;
 };
-export default function NumberInputField<TFormValues extends FieldValues>({
+export default function TextInputField<TFormValues extends FieldValues>({
   form,
   name,
   label
@@ -30,12 +31,9 @@ export default function NumberInputField<TFormValues extends FieldValues>({
           <FormControl>
             <Input
               className="text-base w-full"
-              type="number"
+              type="text"
               value={field.value ?? ''}
-              onChange={(e) => {
-                const value = e.target.value;
-                field.onChange(value === '' ? undefined : Number(value));
-              }}
+              onChange={(e) => field.onChange(e.target.value)}
             />
           </FormControl>
           <FormMessage />

@@ -27,15 +27,14 @@ import {
 import ResistorFields from '@/app/parts-inventory/fields/ResistorFields';
 import CapacitorFields from '@/app/parts-inventory/fields/CapacitorFields';
 import QuantityField from '@/app/parts-inventory/fields/QuantityField';
+import TransistorFields from '@/app/parts-inventory/fields/TransistorFields';
+import DiodeFields from '@/app/parts-inventory/fields/DiodeFields';
+import IcFields from '@/app/parts-inventory/fields/IcFields';
+import PotentiometerFields from '@/app/parts-inventory/fields/PotentiometerFields';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
 export function PartsInventoryForm() {
-  const onSubmit = (values: z.infer<typeof addPartSchema>) => {
-    console.log('submitted form');
-    console.log('errors', form.formState.errors);
-  };
-
   const form = useForm<z.infer<typeof addPartSchema>>({
     mode: 'onBlur',
     resolver: zodResolver(addPartSchema),
@@ -47,6 +46,11 @@ export function PartsInventoryForm() {
       qtyToAdjust: 1
     }
   });
+
+  const onSubmit = (_values: z.infer<typeof addPartSchema>) => {
+    console.log('submitted form');
+    console.log('errors', form.formState.errors);
+  };
 
   const type = form.watch('type');
 
@@ -103,6 +107,47 @@ export function PartsInventoryForm() {
                               unit: 'nF'
                             });
                           }
+
+                          if (value === 'transistor') {
+                            form.reset({
+                              type: 'transistor',
+                              partNumber: undefined,
+                              material: 'silicon',
+                              package: 'to-92',
+                              polarity: undefined
+                            });
+                          }
+
+                          if (value === 'diode') {
+                            form.reset({
+                              type: 'diode',
+                              partNumber: undefined,
+                              diodeType: undefined,
+                              material: 'silicon',
+                              package: 'do-41'
+                            });
+                          }
+
+                          if (value === 'ic') {
+                            form.reset({
+                              type: 'ic',
+                              partNumber: undefined,
+                              package: 'dip-8',
+                              category: 'opamp'
+                            });
+                          }
+
+                          if (value === 'potentiometer') {
+                            form.reset({
+                              type: 'potentiometer',
+                              category: 'rotary',
+                              resistance: undefined,
+                              taper: undefined,
+                              shaftType: 'round',
+                              shaftDiameter: 6.35,
+                              terminalType: 'solder-lugs'
+                            });
+                          }
                         }}
                       >
                         <FormControl>
@@ -116,8 +161,12 @@ export function PartsInventoryForm() {
                           <SelectItem value="capacitor">Capacitor</SelectItem>
                           <SelectItem value="transistor">Transistor</SelectItem>
                           <SelectItem value="diode">Diode</SelectItem>
-                          <SelectItem value="ic">IC</SelectItem>
-                          <SelectItem value="connector">Connector</SelectItem>
+                          <SelectItem value="ic">
+                            Integrated Circuits
+                          </SelectItem>
+                          <SelectItem value="potentiometer">
+                            Potentiometer
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -125,16 +174,20 @@ export function PartsInventoryForm() {
                   )}
                 />
               </div>
-
               {/* Divider */}
               <div className="border-t" />
-
               {/* Dynamic Fields */}
               <div className="space-y-6">
                 {type === 'resistor' && <ResistorFields form={form} />}
                 {type === 'capacitor' && <CapacitorFields form={form} />}
+                {type === 'transistor' && <TransistorFields form={form} />}
+                {type === 'diode' && <DiodeFields form={form} />}
+                {type === 'ic' && <IcFields form={form} />}
+                {type === 'potentiometer' && (
+                  <PotentiometerFields form={form} />
+                )}
               </div>
-
+              <div className="border-t" />
               {/* QTY */}
               <QuantityField
                 form={form}
