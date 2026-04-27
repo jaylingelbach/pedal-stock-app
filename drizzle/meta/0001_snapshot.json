@@ -1,0 +1,369 @@
+{
+  "id": "858bb1ab-70f5-40ed-93ff-b5e52c347145",
+  "prevId": "c6a167a7-0c42-4e48-b27a-82f4644ba104",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.boms": {
+      "name": "boms",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.bom_items": {
+      "name": "bom_items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "bom_id": {
+          "name": "bom_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "part_id": {
+          "name": "part_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity_required": {
+          "name": "quantity_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "bom_items_bom_idx": {
+          "name": "bom_items_bom_idx",
+          "columns": [
+            {
+              "expression": "bom_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "bom_items_part_idx": {
+          "name": "bom_items_part_idx",
+          "columns": [
+            {
+              "expression": "part_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "bom_items_bom_id_boms_id_fk": {
+          "name": "bom_items_bom_id_boms_id_fk",
+          "tableFrom": "bom_items",
+          "tableTo": "boms",
+          "columnsFrom": [
+            "bom_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "bom_items_part_id_parts_id_fk": {
+          "name": "bom_items_part_id_parts_id_fk",
+          "tableFrom": "bom_items",
+          "tableTo": "parts",
+          "columnsFrom": [
+            "part_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "bom_items_quantity_required_check": {
+          "name": "bom_items_quantity_required_check",
+          "value": "\"bom_items\".\"quantity_required\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.inventory_items": {
+      "name": "inventory_items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "part_id": {
+          "name": "part_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "inventory_part_idx": {
+          "name": "inventory_part_idx",
+          "columns": [
+            {
+              "expression": "part_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "inventory_items_part_id_parts_id_fk": {
+          "name": "inventory_items_part_id_parts_id_fk",
+          "tableFrom": "inventory_items",
+          "tableTo": "parts",
+          "columnsFrom": [
+            "part_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "inventory_items_part_id_unique": {
+          "name": "inventory_items_part_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "part_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "inventory_quantity_check": {
+          "name": "inventory_quantity_check",
+          "value": "\"inventory_items\".\"quantity\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.parts": {
+      "name": "parts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "part_number": {
+          "name": "part_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resistance": {
+          "name": "resistance",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resistor_unit": {
+          "name": "resistor_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "watts": {
+          "name": "watts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "capacitance": {
+          "name": "capacitance",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cap_unit": {
+          "name": "cap_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "capacitor_type": {
+          "name": "capacitor_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "voltage_dc": {
+          "name": "voltage_dc",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "diameter_mm": {
+          "name": "diameter_mm",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lead_spacing_mm": {
+          "name": "lead_spacing_mm",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thickness_mm": {
+          "name": "thickness_mm",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "material": {
+          "name": "material",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "package": {
+          "name": "package",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "polarity": {
+          "name": "polarity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "diode_type": {
+          "name": "diode_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ic_category": {
+          "name": "ic_category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pot_category": {
+          "name": "pot_category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "taper": {
+          "name": "taper",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "shaft_type": {
+          "name": "shaft_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "shaft_diameter": {
+          "name": "shaft_diameter",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "terminal_type": {
+          "name": "terminal_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import NumberSelectField from '@/components/forms/fields/NumberSelectField';
@@ -11,14 +10,14 @@ import {
 } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**
- * Renders form inputs for resistor properties: resistance value, unit multiplier, and wattage.
+ * Render three controlled form fields for a resistor's properties.
  *
- * @param form - The react-hook-form controller bound to the `addPartSchema`, used to wire the resistor fields
- * @returns A JSX element containing the three form fields for resistance, unit, and watts
+ * @param form - The react-hook-form controller used to register and control the resistor fields
+ * @returns A JSX element with controlled inputs for resistance value, ohms unit multiplier, and wattage
  */
 export default function ResistorFields({ form }: Props) {
   return (
@@ -31,7 +30,7 @@ export default function ResistorFields({ form }: Props) {
 
       <TextSelectField
         form={form}
-        name="unit"
+        name="resistorUnit"
         label="Unit"
         options={resistanceOptions}
       />

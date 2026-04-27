@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import UnitSelectField from '@/components/forms/fields/UnitSelectField';
@@ -8,8 +7,14 @@ import NumberSelectField from '@/components/forms/fields/NumberSelectField';
 import { ceramicLeadSpacing } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
+/**
+ * Renders ceramic part fields (capacitance, unit, and lead spacing) wired to the provided form controller.
+ *
+ * @param form - The react-hook-form controller used by the field components.
+ * @returns The JSX element containing the arranged ceramic fields.
+ */
 export default function CeramicFields({ form }: Props) {
   return (
     <div className="space-y-6">
@@ -26,7 +31,7 @@ export default function CeramicFields({ form }: Props) {
 
         {/* Unit */}
         <div>
-          <UnitSelectField form={form} name="unit" label="Unit" />
+          <UnitSelectField form={form} name="capUnit" label="Unit" />
         </div>
       </div>
 

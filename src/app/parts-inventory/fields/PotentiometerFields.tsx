@@ -1,6 +1,4 @@
-import z from 'zod';
-
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 import TextSelectField from '@/components/forms/fields/TextSelectField';
 import {
@@ -14,14 +12,14 @@ import {
 import NumberSelectField from '@/components/forms/fields/NumberSelectField';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**
- * Render form fields for adding a potentiometer, wired to the provided react-hook-form instance.
+ * Renders potentiometer-related form fields and binds them to the provided form instance.
  *
- * @param form - A `UseFormReturn` instance whose form values conform to `addPartSchema`; each rendered field is registered under its `name` for that form.
- * @returns A JSX element containing labeled select/number-select inputs for potentiometer attributes (category, resistance, taper, shaft type, shaft diameter, and terminal type).
+ * @param form - The react-hook-form instance used to register the potentiometer fields.
+ * @returns A JSX element containing labeled select and number-select inputs for potentiometer attributes: category, resistance, taper, shaft type, shaft diameter, and terminal type.
  */
 export default function PotentiometerFields({ form }: Props) {
   return (
@@ -30,7 +28,7 @@ export default function PotentiometerFields({ form }: Props) {
         <div className="sm:col-span-2">
           <TextSelectField
             form={form}
-            name="category"
+            name="potCategory"
             label="Category"
             options={potCategory}
           />

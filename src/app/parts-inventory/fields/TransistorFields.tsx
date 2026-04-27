@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import TextInputField from '@/components/forms/fields/TextInputField';
@@ -11,14 +10,14 @@ import {
 } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**
- * Render form fields for entering transistor part details.
+ * Renders input and select controls for capturing transistor part details.
  *
- * @param form - The `react-hook-form` instance (bound to `addPartSchema`) used to register and control the rendered fields.
- * @returns A JSX element containing inputs for `partNumber`, `material`, `polarity`, and `package`
+ * @param form - The `react-hook-form` instance bound to `FormValues` used to register and control the rendered fields.
+ * @returns A JSX element containing inputs for `partNumber`, `material`, `polarity`, and `package`.
  */
 export default function TransistorFields({ form }: Props) {
   return (

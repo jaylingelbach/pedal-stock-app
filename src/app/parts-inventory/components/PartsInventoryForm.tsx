@@ -1,10 +1,8 @@
 'use client';
 
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-
+import { formSchema, type FormValues } from '@/app/parts-inventory/form-schema';
 import {
   Form,
   FormControl,
@@ -24,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+
 import ResistorFields from '@/app/parts-inventory/fields/ResistorFields';
 import CapacitorFields from '@/app/parts-inventory/fields/CapacitorFields';
 import QuantityField from '@/app/parts-inventory/fields/QuantityField';
@@ -35,26 +34,29 @@ import PotentiometerFields from '@/app/parts-inventory/fields/PotentiometerField
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
 /**
- * Render the "Add Part" form for the parts inventory, displaying dynamic field groups and resetting type-specific defaults when the part type changes.
+ * Renders the Parts Inventory form with fields that change based on the selected part type and handles form submission.
  *
- * @returns A React element representing the Add Part form UI.
+ * The form is validated via a Zod schema, initializes sensible defaults for each part type, and resets type-specific defaults when the part type changes. On submit it separates the quantity from the part data and logs the part values and the quantity to the console.
+ *
+ * @returns A React element that renders the Parts Inventory form UI.
  */
 export function PartsInventoryForm() {
-  const form = useForm<z.infer<typeof addPartSchema>>({
+  const form = useForm<FormValues>({
     mode: 'onBlur',
-    resolver: zodResolver(addPartSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       type: 'resistor',
       resistance: 0,
       watts: 0.25,
-      unit: 'K',
+      resistorUnit: 'K',
       qtyToAdjust: 1
     }
   });
 
-  const onSubmit = (_values: z.infer<typeof addPartSchema>) => {
-    console.log('submitted form');
-    console.log('errors', form.formState.errors);
+  const onSubmit = ({ qtyToAdjust, ...partValues }: FormValues) => {
+    console.log('SUBMIT');
+    console.log('part:', partValues);
+    console.log('quantity:', qtyToAdjust);
   };
 
   const type = form.watch('type');
@@ -77,7 +79,7 @@ export function PartsInventoryForm() {
 
             {/* Card */}
             <div className="bg-white rounded-xl border p-6 space-y-6 shadow-sm">
-              {/* Part Type Section */}
+              {/* Part Type */}
               <div className="space-y-2">
                 <FormField
                   control={form.control}
@@ -96,7 +98,7 @@ export function PartsInventoryForm() {
                             form.reset({
                               type: 'resistor',
                               resistance: undefined,
-                              unit: 'K',
+                              resistorUnit: 'K',
                               watts: 0.25
                             });
                           }
@@ -109,7 +111,7 @@ export function PartsInventoryForm() {
                               voltageDc: 50,
                               thicknessMm: 4.5,
                               leadSpacingMm: 5,
-                              unit: 'nF'
+                              capUnit: 'nF'
                             });
                           }
 
@@ -138,14 +140,14 @@ export function PartsInventoryForm() {
                               type: 'ic',
                               partNumber: undefined,
                               package: 'dip-8',
-                              category: 'opamp'
+                              icCategory: 'opamp'
                             });
                           }
 
                           if (value === 'potentiometer') {
                             form.reset({
                               type: 'potentiometer',
-                              category: 'rotary',
+                              potCategory: 'rotary',
                               resistance: undefined,
                               taper: undefined,
                               shaftType: 'round',
@@ -179,8 +181,9 @@ export function PartsInventoryForm() {
                   )}
                 />
               </div>
-              {/* Divider */}
+
               <div className="border-t" />
+
               {/* Dynamic Fields */}
               <div className="space-y-6">
                 {type === 'resistor' && <ResistorFields form={form} />}
@@ -192,8 +195,10 @@ export function PartsInventoryForm() {
                   <PotentiometerFields form={form} />
                 )}
               </div>
+
               <div className="border-t" />
-              {/* QTY */}
+
+              {/* Quantity */}
               <QuantityField
                 form={form}
                 name="qtyToAdjust"

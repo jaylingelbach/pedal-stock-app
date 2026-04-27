@@ -1,19 +1,25 @@
 import z from 'zod';
 
+/**
+ * -----------------------
+ * Helpers
+ * -----------------------
+ */
+
 const requiredNumber = () =>
   z.number({
     error: (issue) =>
       issue.input === undefined ? 'Required' : 'Must be a number'
   });
-/**
- * -----------------------
- * Base part schema
- * -----------------------
- */
 
-const basePartSchema = z.object({
-  qtyToAdjust: requiredNumber().int().min(1, 'Must be at least 1')
-});
+const requiredString = () =>
+  z
+    .string({
+      error: (issue) =>
+        issue.input === undefined ? 'Required' : 'Must be a string'
+    })
+    .trim()
+    .min(1, 'Required');
 
 /**
  * -----------------------
@@ -28,14 +34,14 @@ const resistorSchema = z.object({
     .positive('Must be a positive number')
     .max(2000, 'Must be 2000 or less'),
 
-  unit: z.enum(['R', 'K', 'M']),
+  resistorUnit: z.enum(['R', 'K', 'M']),
 
   watts: requiredNumber().positive('Must be a positive number')
 });
 
 /**
  * -----------------------
- * CAPACITOR SUBTYPES
+ * Capacitors
  * -----------------------
  */
 
@@ -44,14 +50,11 @@ const electrolyticSchema = z.object({
   capacitorType: z.literal('electrolytic'),
 
   capacitance: requiredNumber().positive('Must be a positive number'),
+  capUnit: z.enum(['uF', 'nF']),
 
   voltageDc: requiredNumber().positive('Must be a positive number'),
-
   diameterMm: requiredNumber().positive('Must be a positive number'),
-
-  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
-
-  unit: z.enum(['uF', 'nF'])
+  leadSpacingMm: requiredNumber().positive('Must be a positive number')
 });
 
 const filmSchema = z.object({
@@ -59,14 +62,11 @@ const filmSchema = z.object({
   capacitorType: z.literal('film'),
 
   capacitance: requiredNumber().positive('Must be a positive number'),
+  capUnit: z.enum(['nF', 'uF']),
 
   voltageDc: requiredNumber().positive('Must be a positive number'),
-
   thicknessMm: requiredNumber().positive('Must be a positive number'),
-
-  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
-
-  unit: z.enum(['nF', 'uF'])
+  leadSpacingMm: requiredNumber().positive('Must be a positive number')
 });
 
 const mlccSchema = z.object({
@@ -74,12 +74,10 @@ const mlccSchema = z.object({
   capacitorType: z.literal('mlcc'),
 
   capacitance: requiredNumber().positive('Must be a positive number'),
+  capUnit: z.enum(['pF', 'nF', 'uF']),
 
   voltageDc: requiredNumber().positive('Must be a positive number'),
-
-  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
-
-  unit: z.enum(['pF', 'nF', 'uF'])
+  leadSpacingMm: requiredNumber().positive('Must be a positive number')
 });
 
 const ceramicSchema = z.object({
@@ -87,17 +85,10 @@ const ceramicSchema = z.object({
   capacitorType: z.literal('ceramic'),
 
   capacitance: requiredNumber().positive('Must be a positive number'),
+  capUnit: z.enum(['pF', 'nF']),
 
-  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
-
-  unit: z.enum(['pF', 'nF'])
+  leadSpacingMm: requiredNumber().positive('Must be a positive number')
 });
-
-/**
- * -----------------------
- * CAPACITOR UNION
- * -----------------------
- */
 
 const capacitorSchema = z.discriminatedUnion('capacitorType', [
   electrolyticSchema,
@@ -108,19 +99,17 @@ const capacitorSchema = z.discriminatedUnion('capacitorType', [
 
 /**
  * -----------------------
- * TRANSISTORS
+ * Transistors
  * -----------------------
  */
 
 const transistorSchema = z.object({
   type: z.literal('transistor'),
 
-  partNumber: z.string().trim().min(1, 'Required'),
+  partNumber: requiredString(),
 
   material: z.enum(['silicon', 'germanium']),
-
   package: z.enum(['to-18', 'to-39', 'to-92', 'to-220', 'sot-23']),
-
   polarity: z.enum(['npn', 'pnp', 'mosfet'])
 });
 
@@ -133,12 +122,10 @@ const transistorSchema = z.object({
 const diodeSchema = z.object({
   type: z.literal('diode'),
 
-  partNumber: z.string().trim().min(1, 'Required'),
+  partNumber: requiredString(),
 
   diodeType: z.enum(['signal', 'rectifier', 'zener', 'schottky']),
-
   material: z.enum(['silicon', 'germanium']),
-
   package: z.enum(['do-35', 'do-41', 'smd'])
 });
 
@@ -151,11 +138,10 @@ const diodeSchema = z.object({
 const icSchema = z.object({
   type: z.literal('ic'),
 
-  partNumber: z.string().trim().min(1, 'Required'),
+  partNumber: requiredString(),
 
   package: z.enum(['dip-8', 'dip-16', 'soic-8', 'soic-16', 'sop-8', 'sop-16']),
-
-  category: z.enum(['opamp', 'cmos', 'logic', 'microcontroller', 'other'])
+  icCategory: z.enum(['opamp', 'cmos', 'logic', 'microcontroller', 'other'])
 });
 
 /**
@@ -167,7 +153,7 @@ const icSchema = z.object({
 const potentiometersSchema = z.object({
   type: z.literal('potentiometer'),
 
-  category: z.enum(['rotary', 'trimmer']),
+  potCategory: z.enum(['rotary', 'trimmer']),
 
   resistance: requiredNumber().positive('Must be a positive number'),
 
@@ -182,26 +168,17 @@ const potentiometersSchema = z.object({
 
 /**
  * -----------------------
- * PART UNION (TOP LEVEL)
+ * FINAL UNION
  * -----------------------
  */
 
-export const addPartSchema = z.intersection(
-  basePartSchema,
-  z.discriminatedUnion('type', [
-    resistorSchema,
-    capacitorSchema,
-    transistorSchema,
-    diodeSchema,
-    icSchema,
-    potentiometersSchema
-  ])
-);
-
-/**
- * -----------------------
- * TYPE EXPORT
- * -----------------------
- */
+export const addPartSchema = z.discriminatedUnion('type', [
+  resistorSchema,
+  capacitorSchema,
+  transistorSchema,
+  diodeSchema,
+  icSchema,
+  potentiometersSchema
+]);
 
 export type PartsInventory = z.infer<typeof addPartSchema>;

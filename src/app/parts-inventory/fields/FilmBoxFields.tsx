@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import NumberSelectField from '@/components/forms/fields/NumberSelectField';
@@ -13,9 +12,15 @@ import {
 import UnitSelectField from '@/components/forms/fields/UnitSelectField';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
+/**
+ * Renders form controls for film capacitor properties bound to a react-hook-form.
+ *
+ * @param form - The `UseFormReturn` instance managing fields: `capacitance`, `capUnit`, `voltageDc`, `thicknessMm`, and `leadSpacingMm`.
+ * @returns The JSX element containing capacitance and unit inputs plus physical property selectors.
+ */
 export default function FilmBoxFields({ form }: Props) {
   return (
     <div className="space-y-6">
@@ -32,7 +37,7 @@ export default function FilmBoxFields({ form }: Props) {
 
         {/* Unit */}
         <div>
-          <UnitSelectField form={form} name="unit" label="Unit" />
+          <UnitSelectField form={form} name="capUnit" label="Unit" />
         </div>
       </div>
 
