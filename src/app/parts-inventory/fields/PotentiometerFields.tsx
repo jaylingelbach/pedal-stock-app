@@ -20,9 +20,7 @@ type Props = {
 export default function PotentiometerFields({ form }: Props) {
   return (
     <div className="space-y-6">
-      {/* Part number */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-start">
-        {/* Part Number */}
         <div className="sm:col-span-2">
           <TextSelectField
             form={form}
