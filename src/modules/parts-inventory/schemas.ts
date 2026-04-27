@@ -12,13 +12,7 @@ const requiredNumber = () =>
  */
 
 const basePartSchema = z.object({
-  qtyToAdjust: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .int()
-    .min(1, 'Must be at least 1')
+  qtyToAdjust: requiredNumber().int().min(1, 'Must be at least 1')
 });
 
 /**
