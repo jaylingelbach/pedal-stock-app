@@ -115,7 +115,7 @@ const capacitorSchema = z.discriminatedUnion('capacitorType', [
 const transistorSchema = z.object({
   type: z.literal('transistor'),
 
-  partNumber: z.string().min(1, 'Required'),
+  partNumber: z.string().trim().min(1, 'Required'),
 
   material: z.enum(['silicon', 'germanium']),
 
@@ -133,7 +133,7 @@ const transistorSchema = z.object({
 const diodeSchema = z.object({
   type: z.literal('diode'),
 
-  partNumber: z.string().min(1, 'Required'),
+  partNumber: z.string().trim().min(1, 'Required'),
 
   diodeType: z.enum(['signal', 'rectifier', 'zener', 'schottky']),
 
@@ -151,7 +151,7 @@ const diodeSchema = z.object({
 const icSchema = z.object({
   type: z.literal('ic'),
 
-  partNumber: z.string().min(1, 'Required'),
+  partNumber: z.string().trim().min(1, 'Required'),
 
   package: z.enum(['dip-8', 'dip-16', 'soic-8', 'soic-16', 'sop-8', 'sop-16']),
 
