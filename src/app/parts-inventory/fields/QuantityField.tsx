@@ -31,7 +31,7 @@ export default function QuantityField<TFormValues extends FieldValues>({
             <Input
               className="w-full"
               type="number"
-              min={0}
+              min={1}
               step={1}
               value={field.value ?? ''}
               onChange={(e) => {
