@@ -34,6 +34,11 @@ import PotentiometerFields from '@/app/parts-inventory/fields/PotentiometerField
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
+/**
+ * Render the "Add Part" form for the parts inventory, displaying dynamic field groups and resetting type-specific defaults when the part type changes.
+ *
+ * @returns A React element representing the Add Part form UI.
+ */
 export function PartsInventoryForm() {
   const form = useForm<z.infer<typeof addPartSchema>>({
     mode: 'onBlur',

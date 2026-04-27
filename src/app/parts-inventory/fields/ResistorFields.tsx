@@ -14,6 +14,12 @@ type Props = {
   form: UseFormReturn<z.infer<typeof addPartSchema>>;
 };
 
+/**
+ * Renders form inputs for resistor properties: resistance value, unit multiplier, and wattage.
+ *
+ * @param form - The react-hook-form controller bound to the `addPartSchema`, used to wire the resistor fields
+ * @returns A JSX element containing the three form fields for resistance, unit, and watts
+ */
 export default function ResistorFields({ form }: Props) {
   return (
     <div className="flex flex-wrap gap-4">

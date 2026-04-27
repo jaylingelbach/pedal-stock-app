@@ -10,6 +10,12 @@ type Props = {
   form: UseFormReturn<z.infer<typeof addPartSchema>>;
 };
 
+/**
+ * Render IC-specific form fields for the add-part form.
+ *
+ * @param form - The `react-hook-form` form instance typed to the `addPartSchema` shape; used to bind field components to `partNumber`, `package`, and `category`.
+ * @returns The JSX element containing the IC-related form fields.
+ */
 export default function IcFields({ form }: Props) {
   return (
     <div className="space-y-6">

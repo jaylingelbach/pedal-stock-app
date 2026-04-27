@@ -17,10 +17,18 @@ type Props = {
   form: UseFormReturn<z.infer<typeof addPartSchema>>;
 };
 
+/**
+ * Render form fields for adding a potentiometer, wired to the provided react-hook-form instance.
+ *
+ * @param form - A `UseFormReturn` instance whose form values conform to `addPartSchema`; each rendered field is registered under its `name` for that form.
+ * @returns A JSX element containing labeled select/number-select inputs for potentiometer attributes (category, resistance, taper, shaft type, shaft diameter, and terminal type).
+ */
 export default function PotentiometerFields({ form }: Props) {
   return (
     <div className="space-y-6">
+      {/* Part number */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-start">
+        {/* Part Number */}
         <div className="sm:col-span-2">
           <TextSelectField
             form={form}
