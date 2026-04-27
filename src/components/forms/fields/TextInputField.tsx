@@ -14,6 +14,14 @@ type Props<TFormValues extends FieldValues> = {
   name: FieldPath<TFormValues>;
   label: string;
 };
+/**
+ * Renders a labeled text input bound to a react-hook-form field, displaying validation messages.
+ *
+ * @param form - The react-hook-form `UseFormReturn` instance that provides control and field state.
+ * @param name - The field path within the form values to bind this input to.
+ * @param label - The text label displayed above the input.
+ * @returns The React element for a text input bound to the specified form field.
+ */
 export default function TextInputField<TFormValues extends FieldValues>({
   form,
   name,

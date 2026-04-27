@@ -14,6 +14,14 @@ type Props = {
   form: UseFormReturn<z.infer<typeof addPartSchema>>;
 };
 
+/**
+ * Render form fields for diode part properties.
+ *
+ * Renders inputs/selects bound to the provided form for `partNumber`, `diodeType`, `material`, and `package`.
+ *
+ * @param form - The react-hook-form `UseFormReturn` instance for the `addPartSchema` shape that manages field state and validation.
+ * @returns A JSX element containing inputs and select controls for diode part entry.
+ */
 export default function DiodeFields({ form }: Props) {
   return (
     <div className="space-y-6">

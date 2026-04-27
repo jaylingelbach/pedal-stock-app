@@ -14,6 +14,12 @@ type Props = {
   form: UseFormReturn<z.infer<typeof addPartSchema>>;
 };
 
+/**
+ * Render form fields for entering transistor part details.
+ *
+ * @param form - The `react-hook-form` instance (bound to `addPartSchema`) used to register and control the rendered fields.
+ * @returns A JSX element containing inputs for `partNumber`, `material`, `polarity`, and `package`
+ */
 export default function TransistorFields({ form }: Props) {
   return (
     <div className="space-y-6">

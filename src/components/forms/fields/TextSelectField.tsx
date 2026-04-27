@@ -27,6 +27,16 @@ type Props<TFormValues extends FieldValues> = {
   placeholder?: string;
   options: Option[];
 };
+/**
+ * Render a controlled select field wired to a react-hook-form form instance.
+ *
+ * @param form - The `UseFormReturn` instance managing the form state.
+ * @param name - Form field path for a value that may be `string`, `undefined`, or `null`.
+ * @param label - Visible label text for the field.
+ * @param placeholder - Optional placeholder text shown when no value is selected.
+ * @param options - Array of selection options; each option has `{ value: string; label: string }`.
+ * @returns The JSX element for a form-bound select control with validation messaging.
+ */
 export default function TextSelectField<TFormValues extends FieldValues>({
   form,
   name,
