@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import {
@@ -23,7 +22,7 @@ import MlccFields from '@/app/parts-inventory/fields/MlccFields';
 import CeramicFields from '@/app/parts-inventory/fields/CeramicFields';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 export default function CapacitorFields({ form }: Props) {
@@ -54,7 +53,8 @@ export default function CapacitorFields({ form }: Props) {
                       voltageDc: 5.5,
                       diameterMm: 5,
                       leadSpacingMm: 5,
-                      unit: 'uF'
+                      capUnit: 'uF',
+                      qtyToAdjust: form.getValues('qtyToAdjust')
                     });
                   }
 
@@ -66,7 +66,8 @@ export default function CapacitorFields({ form }: Props) {
                       voltageDc: 63,
                       thicknessMm: 4.5,
                       leadSpacingMm: 5,
-                      unit: 'nF'
+                      capUnit: 'nF',
+                      qtyToAdjust: form.getValues('qtyToAdjust')
                     });
                   }
 
@@ -77,7 +78,8 @@ export default function CapacitorFields({ form }: Props) {
                       capacitance: undefined,
                       voltageDc: 0,
                       leadSpacingMm: 2.5,
-                      unit: 'pF'
+                      capUnit: 'pF',
+                      qtyToAdjust: form.getValues('qtyToAdjust')
                     });
                   }
 
@@ -87,7 +89,8 @@ export default function CapacitorFields({ form }: Props) {
                       capacitorType: 'ceramic',
                       capacitance: undefined,
                       leadSpacingMm: 2.5,
-                      unit: 'pF'
+                      capUnit: 'pF',
+                      qtyToAdjust: form.getValues('qtyToAdjust')
                     });
                   }
                 }}
@@ -111,7 +114,7 @@ export default function CapacitorFields({ form }: Props) {
         />
       </div>
 
-      {/* Divider (optional but nice) */}
+      {/* Divider */}
       <div className="border-t" />
 
       {/* Dynamic Fields Section */}

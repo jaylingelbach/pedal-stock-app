@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import NumberInputField from '@/components/forms/fields/NumberInputField';
@@ -11,7 +10,7 @@ import {
 } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 export default function MlccFields({ form }: Props) {
   return (
@@ -29,7 +28,7 @@ export default function MlccFields({ form }: Props) {
 
         {/* Unit */}
         <div>
-          <UnitSelectField form={form} name="unit" label="Unit" />
+          <UnitSelectField form={form} name="capUnit" label="Unit" />
         </div>
       </div>
 

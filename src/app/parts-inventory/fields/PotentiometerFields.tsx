@@ -1,6 +1,5 @@
-import z from 'zod';
 
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 import TextSelectField from '@/components/forms/fields/TextSelectField';
 import {
@@ -14,7 +13,7 @@ import {
 import NumberSelectField from '@/components/forms/fields/NumberSelectField';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**
@@ -30,7 +29,7 @@ export default function PotentiometerFields({ form }: Props) {
         <div className="sm:col-span-2">
           <TextSelectField
             form={form}
-            name="category"
+            name="potCategory"
             label="Category"
             options={potCategory}
           />

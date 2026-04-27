@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import UnitSelectField from '@/components/forms/fields/UnitSelectField';
@@ -8,7 +7,7 @@ import NumberSelectField from '@/components/forms/fields/NumberSelectField';
 import { ceramicLeadSpacing } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 export default function CeramicFields({ form }: Props) {
   return (
@@ -26,7 +25,7 @@ export default function CeramicFields({ form }: Props) {
 
         {/* Unit */}
         <div>
-          <UnitSelectField form={form} name="unit" label="Unit" />
+          <UnitSelectField form={form} name="capUnit" label="Unit" />
         </div>
       </div>
 

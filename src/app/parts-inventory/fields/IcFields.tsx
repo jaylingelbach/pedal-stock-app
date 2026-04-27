@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import TextInputField from '@/components/forms/fields/TextInputField';
@@ -7,7 +6,7 @@ import TextSelectField from '@/components/forms/fields/TextSelectField';
 import { icCategory, icPackage } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**
@@ -39,7 +38,7 @@ export default function IcFields({ form }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <TextSelectField
           form={form}
-          name="category"
+          name="icCategory"
           label="Category"
           options={icCategory}
         />

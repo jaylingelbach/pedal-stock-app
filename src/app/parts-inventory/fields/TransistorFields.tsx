@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import TextInputField from '@/components/forms/fields/TextInputField';
@@ -11,7 +10,7 @@ import {
 } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**

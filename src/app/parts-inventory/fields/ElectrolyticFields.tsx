@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import NumberInputField from '@/components/forms/fields/NumberInputField';
@@ -11,7 +10,7 @@ import {
 import UnitSelectField from '@/components/forms/fields/UnitSelectField';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 export default function ElectrolyticFields({ form }: Props) {
@@ -22,7 +21,7 @@ export default function ElectrolyticFields({ form }: Props) {
         <NumberInputField form={form} name="capacitance" label="Capacitance" />
 
         {/* Unit (nF/uF) */}
-        <UnitSelectField form={form} name="unit" label="Unit" />
+        <UnitSelectField form={form} name="capUnit" label="Unit" />
       </div>
       {/* Physical Properties */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-start">

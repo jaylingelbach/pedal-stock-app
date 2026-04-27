@@ -1,5 +1,4 @@
-import z from 'zod';
-import { addPartSchema } from '@/modules/parts-inventory/schemas';
+import { type FormValues } from '@/app/parts-inventory/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import NumberSelectField from '@/components/forms/fields/NumberSelectField';
@@ -11,7 +10,7 @@ import {
 } from '@/modules/parts-inventory/options';
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof addPartSchema>>;
+  form: UseFormReturn<FormValues>;
 };
 
 /**
@@ -31,7 +30,7 @@ export default function ResistorFields({ form }: Props) {
 
       <TextSelectField
         form={form}
-        name="unit"
+        name="resistorUnit"
         label="Unit"
         options={resistanceOptions}
       />
