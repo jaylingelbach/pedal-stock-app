@@ -25,6 +25,14 @@ type Props = {
   form: UseFormReturn<FormValues>;
 };
 
+/**
+ * Renders the capacitor-type selector and the corresponding type-specific form fields.
+ *
+ * Uses the provided `form` to watch the current `capacitorType` and to update/reset capacitor-related defaults when the user selects a different type.
+ *
+ * @param form - The `react-hook-form` form object used to read `capacitorType`, update its value, and reset capacitor-specific defaults when the selection changes.
+ * @returns The JSX layout containing the capacitor type select control and the dynamically rendered fields for the selected capacitor type.
+ */
 export default function CapacitorFields({ form }: Props) {
   const capacitorType = form.watch('capacitorType');
 

@@ -13,6 +13,16 @@ type Props = {
   form: UseFormReturn<FormValues>;
 };
 
+/**
+ * Renders form fields for electrolytic component parameters.
+ *
+ * Renders two responsive rows: capacitance with unit selection, and physical properties
+ * (voltage rating, diameter, and lead spacing). Each field is bound to the provided
+ * React Hook Form controller.
+ *
+ * @param form - The React Hook Form controller (UseFormReturn<FormValues>) used by the child fields
+ * @returns The JSX element containing the arranged electrolytic form fields
+ */
 export default function ElectrolyticFields({ form }: Props) {
   return (
     <div className="space-y-6">

@@ -10,10 +10,12 @@ type Props = {
 };
 
 /**
- * Render IC-specific form fields for the add-part form.
+ * Renders IC-specific fields for the add-part form.
  *
- * @param form - The `react-hook-form` form instance typed to the `UseFormReturn<FormValues>` shape; used to bind field components to `partNumber`, `package`, and `category`.
- * @returns The JSX element containing the IC-related form fields.
+ * @param form - The react-hook-form instance used to bind the rendered fields
+ *   to the form state
+ * @returns A JSX element containing fields bound to `partNumber`, `package`, and
+ *   `icCategory`
  */
 export default function IcFields({ form }: Props) {
   return (

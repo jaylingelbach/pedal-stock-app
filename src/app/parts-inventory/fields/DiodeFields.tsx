@@ -14,12 +14,10 @@ type Props = {
 };
 
 /**
- * Render form fields for diode part properties.
+ * Renders form controls for diode properties: part number, diode type, material, and package.
  *
- * Renders inputs/selects bound to the provided form for `partNumber`, `diodeType`, `material`, and `package`.
- *
- * @param form - The react-hook-form `UseFormReturn` instance for the `UseFormReturn<FormValues>` shape that manages field state and validation.
- * @returns A JSX element containing inputs and select controls for diode part entry.
+ * @param form - React Hook Form instance that manages state and validation for these fields
+ * @returns A JSX element containing the wired input and select controls for diode part entry
  */
 export default function DiodeFields({ form }: Props) {
   return (
