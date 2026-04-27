@@ -1,4 +1,4 @@
-import { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldPathByValue, FieldValues, UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
   FormField,
@@ -22,7 +22,7 @@ type Option = {
 
 type Props<TFormValues extends FieldValues> = {
   form: UseFormReturn<TFormValues>;
-  name: FieldPath<TFormValues>;
+  name: FieldPathByValue<TFormValues, string | undefined | null>;
   label: string;
   placeholder?: string;
   options: Option[];
