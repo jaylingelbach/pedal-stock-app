@@ -12,7 +12,14 @@ const requiredNumber = () =>
       issue.input === undefined ? 'Required' : 'Must be a number'
   });
 
-const requiredString = () => z.string().trim().min(1, 'Required');
+const requiredString = () =>
+  z
+    .string({
+      error: (issue) =>
+        issue.input === undefined ? 'Required' : 'Must be a string'
+    })
+    .trim()
+    .min(1, 'Required');
 
 /**
  * -----------------------
