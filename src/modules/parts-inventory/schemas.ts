@@ -1,5 +1,10 @@
 import z from 'zod';
 
+const requiredNumber = () =>
+  z.number({
+    error: (issue) =>
+      issue.input === undefined ? 'Required' : 'Must be a number'
+  });
 /**
  * -----------------------
  * Base part schema
@@ -25,22 +30,13 @@ const basePartSchema = z.object({
 const resistorSchema = z.object({
   type: z.literal('resistor'),
 
-  resistance: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
+  resistance: requiredNumber()
     .positive('Must be a positive number')
     .max(2000, 'Must be 2000 or less'),
 
   unit: z.enum(['R', 'K', 'M']),
 
-  watts: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number')
+  watts: requiredNumber().positive('Must be a positive number')
 });
 
 /**
@@ -53,33 +49,13 @@ const electrolyticSchema = z.object({
   type: z.literal('capacitor'),
   capacitorType: z.literal('electrolytic'),
 
-  capacitance: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  capacitance: requiredNumber().positive('Must be a positive number'),
 
-  voltageDc: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  voltageDc: requiredNumber().positive('Must be a positive number'),
 
-  diameterMm: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  diameterMm: requiredNumber().positive('Must be a positive number'),
 
-  leadSpacingMm: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
 
   unit: z.enum(['uF', 'nF'])
 });
@@ -88,33 +64,13 @@ const filmSchema = z.object({
   type: z.literal('capacitor'),
   capacitorType: z.literal('film'),
 
-  capacitance: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  capacitance: requiredNumber().positive('Must be a positive number'),
 
-  voltageDc: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  voltageDc: requiredNumber().positive('Must be a positive number'),
 
-  thicknessMm: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  thicknessMm: requiredNumber().positive('Must be a positive number'),
 
-  leadSpacingMm: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
 
   unit: z.enum(['nF', 'uF'])
 });
@@ -123,26 +79,11 @@ const mlccSchema = z.object({
   type: z.literal('capacitor'),
   capacitorType: z.literal('mlcc'),
 
-  capacitance: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  capacitance: requiredNumber().positive('Must be a positive number'),
 
-  voltageDc: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  voltageDc: requiredNumber().positive('Must be a positive number'),
 
-  leadSpacingMm: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
 
   unit: z.enum(['pF', 'nF', 'uF'])
 });
@@ -151,19 +92,9 @@ const ceramicSchema = z.object({
   type: z.literal('capacitor'),
   capacitorType: z.literal('ceramic'),
 
-  capacitance: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  capacitance: requiredNumber().positive('Must be a positive number'),
 
-  leadSpacingMm: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  leadSpacingMm: requiredNumber().positive('Must be a positive number'),
 
   unit: z.enum(['pF', 'nF'])
 });
@@ -244,23 +175,13 @@ const potentiometersSchema = z.object({
 
   category: z.enum(['rotary', 'trimmer']),
 
-  resistance: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  resistance: requiredNumber().positive('Must be a positive number'),
 
   taper: z.enum(['linear', 'logarithmic', 'anti-log', 'w-taper']),
 
   shaftType: z.enum(['round', 'spline', 'd-shaft']),
 
-  shaftDiameter: z
-    .number({
-      error: (issue) =>
-        issue.input === undefined ? 'Required' : 'Must be a number'
-    })
-    .positive('Must be a positive number'),
+  shaftDiameter: requiredNumber().positive('Must be a positive number'),
 
   terminalType: z.enum(['pcb', 'solder-lugs', 'long-pins'])
 });

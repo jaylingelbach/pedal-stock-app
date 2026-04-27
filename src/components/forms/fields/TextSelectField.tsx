@@ -55,7 +55,7 @@ export default function TextSelectField<TFormValues extends FieldValues>({
                 <SelectItem
                   className="text-base"
                   key={option.value}
-                  value={option.value.toString()}
+                  value={option.value}
                 >
                   {option.label}
                 </SelectItem>

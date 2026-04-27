@@ -55,7 +55,7 @@ export function PartsInventoryForm() {
   const type = form.watch('type');
 
   const sharedDefaults = {
-    qtyToAdj: form.getValues('qtyToAdjust') ?? 1
+    qtyToAdjust: form.getValues('qtyToAdjust') ?? 1
   };
 
   return (
