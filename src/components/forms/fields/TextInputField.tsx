@@ -30,6 +30,7 @@ export default function TextInputField<TFormValues extends FieldValues>({
           </FormLabel>
           <FormControl>
             <Input
+              {...field}
               className="text-base w-full"
               type="text"
               value={field.value ?? ''}
