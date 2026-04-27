@@ -12,6 +12,15 @@ import {
 type Props = {
   form: UseFormReturn<FormValues>;
 };
+/**
+ * Renders MLCC-specific form controls bound to the provided React Hook Form instance.
+ *
+ * Renders grouped fields for capacitance (with unit), DC voltage, and lead spacing,
+ * each wired to the `form` prop so values and validation are managed by React Hook Form.
+ *
+ * @param form - A `UseFormReturn<FormValues>` instance used to register and control the fields
+ * @returns The JSX element containing the MLCC form fields
+ */
 export default function MlccFields({ form }: Props) {
   return (
     <div className="space-y-6">

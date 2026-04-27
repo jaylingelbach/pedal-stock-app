@@ -15,6 +15,12 @@ type Props = {
   form: UseFormReturn<FormValues>;
 };
 
+/**
+ * Renders form controls for film capacitor properties bound to a react-hook-form.
+ *
+ * @param form - The `UseFormReturn` instance managing fields: `capacitance`, `capUnit`, `voltageDc`, `thicknessMm`, and `leadSpacingMm`.
+ * @returns The JSX element containing capacitance and unit inputs plus physical property selectors.
+ */
 export default function FilmBoxFields({ form }: Props) {
   return (
     <div className="space-y-6">

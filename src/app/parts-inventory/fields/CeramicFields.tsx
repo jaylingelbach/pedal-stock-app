@@ -9,6 +9,12 @@ import { ceramicLeadSpacing } from '@/modules/parts-inventory/options';
 type Props = {
   form: UseFormReturn<FormValues>;
 };
+/**
+ * Renders ceramic part fields (capacitance, unit, and lead spacing) wired to the provided form controller.
+ *
+ * @param form - The react-hook-form controller used by the field components.
+ * @returns The JSX element containing the arranged ceramic fields.
+ */
 export default function CeramicFields({ form }: Props) {
   return (
     <div className="space-y-6">

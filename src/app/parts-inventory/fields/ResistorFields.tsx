@@ -14,10 +14,10 @@ type Props = {
 };
 
 /**
- * Renders form inputs for resistor properties: resistance value, unit multiplier, and wattage.
+ * Render three controlled form fields for a resistor's properties.
  *
- * @param form - The react-hook-form controller bound to the `UseFormReturn<FormValues>`, used to wire the resistor fields
- * @returns A JSX element containing the three form fields for resistance, unit, and watts
+ * @param form - The react-hook-form controller used to register and control the resistor fields
+ * @returns A JSX element with controlled inputs for resistance value, ohms unit multiplier, and wattage
  */
 export default function ResistorFields({ form }: Props) {
   return (

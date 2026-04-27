@@ -16,10 +16,10 @@ type Props = {
 };
 
 /**
- * Render form fields for adding a potentiometer, wired to the provided react-hook-form instance.
+ * Renders potentiometer-related form fields and binds them to the provided form instance.
  *
- * @param form - A `UseFormReturn` instance whose form values conform to `UseFormReturn<FormValues>`; each rendered field is registered under its `name` for that form.
- * @returns A JSX element containing labeled select/number-select inputs for potentiometer attributes (category, resistance, taper, shaft type, shaft diameter, and terminal type).
+ * @param form - The react-hook-form instance used to register the potentiometer fields.
+ * @returns A JSX element containing labeled select and number-select inputs for potentiometer attributes: category, resistance, taper, shaft type, shaft diameter, and terminal type.
  */
 export default function PotentiometerFields({ form }: Props) {
   return (
