@@ -48,7 +48,7 @@ export default function NumberSelectField<TFormValues extends FieldValues>({
             onValueChange={(value) => field.onChange(Number(value))}
           >
             <FormControl>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full" onBlur={field.onBlur}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

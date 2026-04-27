@@ -36,7 +36,7 @@ export default function UnitSelectField<TFormValues extends FieldValues>({
           </FormLabel>
           <Select value={field.value} onValueChange={field.onChange}>
             <FormControl>
-              <SelectTrigger className="w-full h-10">
+              <SelectTrigger className="w-full h-10" onBlur={field.onBlur}>
                 <SelectValue placeholder="Unit" />
               </SelectTrigger>
             </FormControl>

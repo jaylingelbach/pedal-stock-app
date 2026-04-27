@@ -43,12 +43,9 @@ export default function TextSelectField<TFormValues extends FieldValues>({
           <FormLabel className="text-base text-muted-foreground">
             {label}
           </FormLabel>
-          <Select
-            value={field.value ?? ''}
-            onValueChange={field.onChange}
-          >
+          <Select value={field.value ?? ''} onValueChange={field.onChange}>
             <FormControl>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full" onBlur={field.onBlur}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
