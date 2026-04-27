@@ -27,22 +27,22 @@ export const parts = pgTable('parts', {
    * Resistors
    * -----------------------
    */
-  resistance: numeric('resistance'),
+  resistance: numeric('resistance', { mode: 'number' }),
   resistorUnit: text('resistor_unit'),
-  watts: numeric('watts'),
+  watts: numeric('watts', { mode: 'number' }),
 
   /**
    * -----------------------
    * Capacitors
    * -----------------------
    */
-  capacitance: numeric('capacitance'),
+  capacitance: numeric('capacitance', { mode: 'number' }),
   capUnit: text('cap_unit'),
   capacitorType: text('capacitor_type'),
-  voltageDc: numeric('voltage_dc'),
-  diameterMm: numeric('diameter_mm'),
-  leadSpacingMm: numeric('lead_spacing_mm'),
-  thicknessMm: numeric('thickness_mm'),
+  voltageDc: numeric('voltage_dc', { mode: 'number' }),
+  diameterMm: numeric('diameter_mm', { mode: 'number' }),
+  leadSpacingMm: numeric('lead_spacing_mm', { mode: 'number' }),
+  thicknessMm: numeric('thickness_mm', { mode: 'number' }),
 
   /**
    * -----------------------
@@ -69,7 +69,7 @@ export const parts = pgTable('parts', {
   potCategory: text('pot_category'),
   taper: text('taper'),
   shaftType: text('shaft_type'),
-  shaftDiameter: numeric('shaft_diameter'),
+  shaftDiameter: numeric('shaft_diameter', { mode: 'number' }),
   terminalType: text('terminal_type')
 });
 
