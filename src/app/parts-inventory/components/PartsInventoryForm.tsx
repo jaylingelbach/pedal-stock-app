@@ -54,6 +54,10 @@ export function PartsInventoryForm() {
 
   const type = form.watch('type');
 
+  const sharedDefaults = {
+    qtyToAdj: form.getValues('qtyToAdjust') ?? 1
+  };
+
   return (
     <div className="min-h-screen bg-[#F4F4F0] flex justify-center">
       <div className="w-full max-w-3xl px-4 py-8 lg:py-12">
@@ -90,6 +94,7 @@ export function PartsInventoryForm() {
                           if (value === 'resistor') {
                             form.reset({
                               type: 'resistor',
+                              ...sharedDefaults,
                               resistance: undefined,
                               unit: 'K',
                               watts: 0.25
@@ -99,6 +104,7 @@ export function PartsInventoryForm() {
                           if (value === 'capacitor') {
                             form.reset({
                               type: 'capacitor',
+                              ...sharedDefaults,
                               capacitorType: 'film',
                               capacitance: undefined,
                               voltageDc: 50,
@@ -111,6 +117,7 @@ export function PartsInventoryForm() {
                           if (value === 'transistor') {
                             form.reset({
                               type: 'transistor',
+                              ...sharedDefaults,
                               partNumber: undefined,
                               material: 'silicon',
                               package: 'to-92',
@@ -121,6 +128,7 @@ export function PartsInventoryForm() {
                           if (value === 'diode') {
                             form.reset({
                               type: 'diode',
+                              ...sharedDefaults,
                               partNumber: undefined,
                               diodeType: undefined,
                               material: 'silicon',
@@ -131,6 +139,7 @@ export function PartsInventoryForm() {
                           if (value === 'ic') {
                             form.reset({
                               type: 'ic',
+                              ...sharedDefaults,
                               partNumber: undefined,
                               package: 'dip-8',
                               category: 'opamp'
@@ -140,6 +149,7 @@ export function PartsInventoryForm() {
                           if (value === 'potentiometer') {
                             form.reset({
                               type: 'potentiometer',
+                              ...sharedDefaults,
                               category: 'rotary',
                               resistance: undefined,
                               taper: undefined,
