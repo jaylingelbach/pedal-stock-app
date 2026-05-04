@@ -41,9 +41,9 @@ export default function QuantityField<TFormValues extends FieldValues>({
             <Input
               className="w-full"
               type="number"
-              min={1}
               step={1}
               value={field.value ?? ''}
+              onBlur={field.onBlur}
               onChange={(e) => {
                 const value = e.target.value;
                 field.onChange(value === '' ? undefined : Number(value));
