@@ -39,7 +39,7 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 /**
  * Renders the Parts Inventory form with fields that change based on the selected part type and handles form submission.
  *
- * The form is validated via a Zod schema, initializes sensible defaults for each part type, and resets type-specific defaults when the part type changes. On submit it separates the quantity from the part data and logs the part values and the quantity to the console.
+ * The form is validated via a Zod schema, initializes defaults for each part type, and resets type-specific defaults when the part type changes. On submit it separates quantity from part data and sends both to the addPart tRPC mutation.
  *
  * @returns A React element that renders the Parts Inventory form UI.
  */
