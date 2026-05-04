@@ -30,6 +30,9 @@ import TransistorFields from '@/app/parts-inventory/fields/TransistorFields';
 import DiodeFields from '@/app/parts-inventory/fields/DiodeFields';
 import IcFields from '@/app/parts-inventory/fields/IcFields';
 import PotentiometerFields from '@/app/parts-inventory/fields/PotentiometerFields';
+import { trpc } from '@/trpc/client';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
@@ -46,7 +49,7 @@ export function PartsInventoryForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       type: 'resistor',
-      resistance: 0,
+      resistance: undefined,
       watts: 0.25,
       resistorUnit: 'K',
       qtyToAdjust: 1
@@ -57,9 +60,22 @@ export function PartsInventoryForm() {
     console.log('SUBMIT');
     console.log('part:', partValues);
     console.log('quantity:', qtyToAdjust);
+    addPartMutation.mutate({
+      part: partValues,
+      quantity: qtyToAdjust
+    });
   };
 
   const type = form.watch('type');
+
+  const addPartMutation = trpc.parts.addPart.useMutation({
+    onSuccess: () => {
+      toast.success('Part added successfully');
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    }
+  });
 
   return (
     <div className="min-h-screen bg-[#F4F4F0] flex justify-center">
@@ -211,8 +227,16 @@ export function PartsInventoryForm() {
               type="submit"
               size="lg"
               className="text-base w-full bg-black text-white hover:bg-pink-400 hover:text-primary"
+              disabled={addPartMutation.isPending}
             >
-              Add Part
+              {addPartMutation.isPending ? (
+                <>
+                  <Loader2 className="animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                'Add Part'
+              )}
             </Button>
           </form>
         </Form>
