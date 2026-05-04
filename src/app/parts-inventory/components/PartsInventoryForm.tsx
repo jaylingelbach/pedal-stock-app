@@ -57,9 +57,6 @@ export function PartsInventoryForm() {
   });
 
   const onSubmit = ({ qtyToAdjust, ...partValues }: FormValues) => {
-    console.log('SUBMIT');
-    console.log('part:', partValues);
-    console.log('quantity:', qtyToAdjust);
     addPartMutation.mutate({
       part: partValues,
       quantity: qtyToAdjust
