@@ -45,14 +45,14 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
  */
 export function PartsInventoryForm() {
   const form = useForm<FormValues>({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     resolver: zodResolver(formSchema),
     defaultValues: {
       type: 'resistor',
       resistance: undefined,
       watts: 0.25,
       resistorUnit: 'K',
-      qtyToAdjust: 1
+      qtyToAdjust: undefined
     }
   });
 
@@ -73,7 +73,10 @@ export function PartsInventoryForm() {
       toast.success('Part added successfully');
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error('Could not add part. Please try again.');
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('addPart failed:', err);
+      }
     }
   });
 
