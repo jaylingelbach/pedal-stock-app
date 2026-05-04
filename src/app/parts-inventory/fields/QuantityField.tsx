@@ -16,7 +16,7 @@ type Props<TFormValues extends FieldValues> = {
 /**
  * Render a controlled numeric form field bound to the provided react-hook-form control.
  *
- * Renders a labeled number input that accepts integer values with a minimum of 1 and binds its value to the specified form field; empty input maps to `undefined`.
+ * Renders a labeled number input that accepts numeric values and binds its value to the specified form field; empty input maps to `undefined`.
  *
  * @param form - The `UseFormReturn<TFormValues>` form instance managing field state
  * @param name - The `FieldPath<TFormValues>` identifying the bound form field
@@ -41,9 +41,9 @@ export default function QuantityField<TFormValues extends FieldValues>({
             <Input
               className="w-full"
               type="number"
-              min={1}
               step={1}
               value={field.value ?? ''}
+              onBlur={field.onBlur}
               onChange={(e) => {
                 const value = e.target.value;
                 field.onChange(value === '' ? undefined : Number(value));
