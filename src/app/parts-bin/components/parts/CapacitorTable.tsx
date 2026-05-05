@@ -10,6 +10,12 @@ import { EmptyRow } from './EmptyRow';
 import { QtyBadge } from './QtyBadge';
 import type { PartRow } from './types';
 
+/**
+ * Renders a table of capacitor parts with columns for Type, Capacitance, Voltage, Lead Spacing, and Qty.
+ *
+ * @param rows - Array of capacitor part rows to display. If the array is empty, an empty row spanning all columns is rendered.
+ * @returns The table element containing header and body rows for the provided capacitor parts.
+ */
 export function CapacitorTable({ rows }: { rows: PartRow[] }) {
   return (
     <Table>

@@ -10,6 +10,14 @@ import { EmptyRow } from './EmptyRow';
 import { QtyBadge } from './QtyBadge';
 import type { PartRow } from './types';
 
+/**
+ * Render a table of IC parts with columns Part #, Category, Package, and Qty.
+ *
+ * Renders a header row with the four column titles. If `rows` is empty, renders an empty placeholder row spanning the four columns; otherwise renders one table row per `PartRow`, showing part number, category, package, and a quantity badge.
+ *
+ * @param rows - Array of part rows to display; when empty an <EmptyRow cols={4} /> placeholder is shown
+ * @returns A JSX element containing the populated table or the empty-row placeholder
+ */
 export function IcTable({ rows }: { rows: PartRow[] }) {
   return (
     <Table>

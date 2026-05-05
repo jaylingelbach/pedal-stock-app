@@ -19,6 +19,16 @@ import { PartsBinSkeleton } from './parts/PartsBinSkeleton';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
+/**
+ * Render the parts inventory page with aggregated stats and tabbed tables by part type.
+ *
+ * Displays a header with branding and an "Add Part" action, a stats grid (unique parts, part types, units in stock),
+ * and a tabbed container that shows all parts grouped by type or individual type tables.
+ *
+ * The component shows a loading skeleton while the parts query is pending and surfaces a toast error if loading fails.
+ *
+ * @returns A React element rendering the parts inventory UI with summary stats, tabs, and per-type tables.
+ */
 export function PartsBin() {
   const getAllPartsQuery = trpc.parts.getAllParts.useQuery();
 

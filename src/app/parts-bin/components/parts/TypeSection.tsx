@@ -2,6 +2,14 @@ import { Badge } from '@/components/ui/badge';
 
 type Props = { title: string; count: number; children: React.ReactNode };
 
+/**
+ * Render a titled section with an outline count badge and its children; renders nothing when `count` is zero.
+ *
+ * @param title - The section heading text
+ * @param count - The numeric value displayed in the badge; when `0` the component returns `null`
+ * @param children - Content to display below the header
+ * @returns The section element containing the header (title and badge) and children, or `null` if `count` is zero
+ */
 export function TypeSection({ title, count, children }: Props) {
   if (count === 0) return null;
   return (

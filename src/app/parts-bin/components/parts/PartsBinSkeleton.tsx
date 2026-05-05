@@ -17,6 +17,13 @@ const TAB_LABELS = [
   'Pots'
 ];
 
+/**
+ * Render a page-level skeleton UI for the inventory parts bin.
+ *
+ * Displays a header with the business name, three statistic placeholders, and a tabbed parts list populated with skeleton rows to indicate loading.
+ *
+ * @returns A JSX element that renders the parts bin loading skeleton.
+ */
 export function PartsBinSkeleton() {
   return (
     <div className="min-h-screen bg-[#F4F4F0] flex justify-center">

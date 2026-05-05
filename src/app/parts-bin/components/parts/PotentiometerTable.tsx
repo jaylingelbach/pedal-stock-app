@@ -10,6 +10,17 @@ import { EmptyRow } from './EmptyRow';
 import { QtyBadge } from './QtyBadge';
 import type { PartRow } from './types';
 
+/**
+ * Render a table of potentiometer parts.
+ *
+ * Renders a table with columns for Category, Resistance, Taper, Shaft, Terminal, and Qty.
+ * If `rows` is empty, a single empty row spanning all columns is rendered. Otherwise each
+ * `PartRow` is rendered as a table row with formatted resistance (`{value}kΩ`) and shaft
+ * diameter (`{value}mm`) when present and capitalized category/taper/terminal cells.
+ *
+ * @param rows - The array of potentiometer `PartRow` objects to display in the table
+ * @returns A table element representing the provided potentiometer rows
+ */
 export function PotentiometerTable({ rows }: { rows: PartRow[] }) {
   return (
     <Table>
