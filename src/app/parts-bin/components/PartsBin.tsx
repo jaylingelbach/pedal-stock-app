@@ -31,6 +31,7 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
  */
 export function PartsBin() {
   const getAllPartsQuery = trpc.parts.getAllParts.useQuery();
+  const businessName = process.env.NEXT_PUBLIC_BUSINESS_NAME ?? 'Parts';
 
   useEffect(() => {
     if (getAllPartsQuery.isError) {
@@ -66,7 +67,7 @@ export function PartsBin() {
         <div className="flex items-center justify-between">
           <Link href="/">
             <span className={cn('text-2xl font-semibold', poppins.className)}>
-              {process.env.NEXT_PUBLIC_BUSINESS_NAME} Inventory
+              {businessName} Inventory
             </span>
           </Link>
           <Button
