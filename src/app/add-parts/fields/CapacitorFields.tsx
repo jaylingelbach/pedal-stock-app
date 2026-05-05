@@ -1,4 +1,4 @@
-import { type FormValues } from '@/app/parts-inventory/form-schema';
+import { type FormValues } from '@/app/add-parts/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 
 import {
@@ -16,10 +16,10 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import ElectrolyticFields from '@/app/parts-inventory/fields/ElectrolyticFields';
-import FilmBoxFields from '@/app/parts-inventory/fields/FilmBoxFields';
-import MlccFields from '@/app/parts-inventory/fields/MlccFields';
-import CeramicFields from '@/app/parts-inventory/fields/CeramicFields';
+import ElectrolyticFields from '@/app/add-parts/fields/ElectrolyticFields';
+import FilmBoxFields from '@/app/add-parts/fields/FilmBoxFields';
+import MlccFields from '@/app/add-parts/fields/MlccFields';
+import CeramicFields from '@/app/add-parts/fields/CeramicFields';
 
 type Props = {
   form: UseFormReturn<FormValues>;
