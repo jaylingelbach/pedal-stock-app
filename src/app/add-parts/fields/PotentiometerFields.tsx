@@ -1,4 +1,4 @@
-import { type FormValues } from '@/app/parts-inventory/form-schema';
+import { type FormValues } from '@/app/add-parts/form-schema';
 import { UseFormReturn } from 'react-hook-form';
 import TextSelectField from '@/components/forms/fields/TextSelectField';
 import {

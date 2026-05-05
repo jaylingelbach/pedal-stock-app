@@ -1,0 +1,26 @@
+export type PartRow = {
+  id: number;
+  type: string;
+  quantity: number;
+  partNumber: string | null;
+  resistance: number | null;
+  resistorUnit: string | null;
+  watts: number | null;
+  capacitorType: string | null;
+  capacitance: number | null;
+  capUnit: string | null;
+  voltageDc: number | null;
+  diameterMm: number | null;
+  leadSpacingMm: number | null;
+  thicknessMm: number | null;
+  material: string | null;
+  package: string | null;
+  polarity: string | null;
+  diodeType: string | null;
+  icCategory: string | null;
+  potCategory: string | null;
+  taper: string | null;
+  shaftType: string | null;
+  shaftDiameter: number | null;
+  terminalType: string | null;
+};

@@ -182,5 +182,11 @@ export const partsRouter = router({
       });
 
       return { success: true };
-    })
+    }),
+  getAllParts: publicProcedure.query(async () => {
+    return db
+      .select()
+      .from(parts)
+      .leftJoin(inventory, eq(inventory.partId, parts.id));
+  })
 });

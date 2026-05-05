@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { formSchema, type FormValues } from '@/app/parts-inventory/form-schema';
+import { formSchema, type FormValues } from '@/app/add-parts/form-schema';
 import {
   Form,
   FormControl,
@@ -23,13 +23,13 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
-import ResistorFields from '@/app/parts-inventory/fields/ResistorFields';
-import CapacitorFields from '@/app/parts-inventory/fields/CapacitorFields';
-import QuantityField from '@/app/parts-inventory/fields/QuantityField';
-import TransistorFields from '@/app/parts-inventory/fields/TransistorFields';
-import DiodeFields from '@/app/parts-inventory/fields/DiodeFields';
-import IcFields from '@/app/parts-inventory/fields/IcFields';
-import PotentiometerFields from '@/app/parts-inventory/fields/PotentiometerFields';
+import ResistorFields from '@/app/add-parts/fields/ResistorFields';
+import CapacitorFields from '@/app/add-parts/fields/CapacitorFields';
+import QuantityField from '@/app/add-parts/fields/QuantityField';
+import TransistorFields from '@/app/add-parts/fields/TransistorFields';
+import DiodeFields from '@/app/add-parts/fields/DiodeFields';
+import IcFields from '@/app/add-parts/fields/IcFields';
+import PotentiometerFields from '@/app/add-parts/fields/PotentiometerFields';
 import { trpc } from '@/trpc/client';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
@@ -37,13 +37,13 @@ import { Loader2 } from 'lucide-react';
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
 /**
- * Renders the Parts Inventory form with fields that change based on the selected part type and handles form submission.
+ * Render the Add Parts form that updates available fields based on the selected part type and submits part data with a quantity.
  *
- * The form is validated via a Zod schema, initializes defaults for each part type, and resets type-specific defaults when the part type changes. On submit it separates quantity from part data and sends both to the addPart tRPC mutation.
+ * The form validates input with the form schema, resets type-specific default values when the part type changes, and on submit sends the part data (excluding the quantity field) together with the specified quantity to the add-part mutation. Successful and failed submissions show success and error toasts, respectively.
  *
- * @returns A React element that renders the Parts Inventory form UI.
+ * @returns A React element rendering the Add Parts form UI
  */
-export function PartsInventoryForm() {
+export function AddPartsForm() {
   const form = useForm<FormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(formSchema),
@@ -88,7 +88,7 @@ export function PartsInventoryForm() {
                 <span
                   className={cn('text-2xl font-semibold', poppins.className)}
                 >
-                  Brown Bear Parts Inventory
+                  {process.env.NEXT_PUBLIC_BUSINESS_NAME}
                 </span>
               </Link>
             </div>
@@ -226,7 +226,7 @@ export function PartsInventoryForm() {
             <Button
               type="submit"
               size="lg"
-              className="text-base w-full bg-black text-white hover:bg-pink-400 hover:text-primary"
+              className="bg-black text-white [a]:hover:bg-pink-400 [a]:hover:text-primary"
               disabled={addPartMutation.isPending}
             >
               {addPartMutation.isPending ? (
