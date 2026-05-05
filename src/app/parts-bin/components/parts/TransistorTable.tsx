@@ -10,6 +10,15 @@ import { EmptyRow } from './EmptyRow';
 import { QtyBadge } from './QtyBadge';
 import type { PartRow } from './types';
 
+/**
+ * Render a table of transistor part rows with columns for part number, material, package, polarity, and quantity.
+ *
+ * Renders an EmptyRow spanning five columns when `rows` is empty; otherwise renders one table row per item with
+ * formatted cells and a quantity badge.
+ *
+ * @param rows - Array of `PartRow` items to display in the table
+ * @returns The rendered table element for the provided part rows
+ */
 export function TransistorTable({ rows }: { rows: PartRow[] }) {
   return (
     <Table>

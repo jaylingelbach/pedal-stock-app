@@ -1,6 +1,11 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
+/**
+ * Renders the homepage with navigation buttons linking to Add Parts and Parts Bin.
+ *
+ * @returns The page's JSX element containing a nav with two link-styled buttons to `/add-parts` and `/parts-bin`.
+ */
 export default function Home() {
   return (
     <div>

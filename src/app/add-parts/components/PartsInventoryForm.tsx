@@ -37,11 +37,11 @@ import { Loader2 } from 'lucide-react';
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
 /**
- * Renders the Parts Inventory form with fields that change based on the selected part type and handles form submission.
+ * Render the Add Parts form that updates available fields based on the selected part type and submits part data with a quantity.
  *
- * The form is validated via a Zod schema, initializes defaults for each part type, and resets type-specific defaults when the part type changes. On submit it separates quantity from part data and sends both to the addPart tRPC mutation.
+ * The form validates input with the form schema, resets type-specific default values when the part type changes, and on submit sends the part data (excluding the quantity field) together with the specified quantity to the add-part mutation. Successful and failed submissions show success and error toasts, respectively.
  *
- * @returns A React element that renders the Parts Inventory form UI.
+ * @returns A React element rendering the Add Parts form UI
  */
 export function AddPartsForm() {
   const form = useForm<FormValues>({
