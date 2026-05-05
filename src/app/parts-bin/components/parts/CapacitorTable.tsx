@@ -30,11 +30,10 @@ export function CapacitorTable({ rows }: { rows: PartRow[] }) {
             <TableRow key={r.id}>
               <TableCell className="capitalize">{r.capacitorType}</TableCell>
               <TableCell>
-                {r.capacitance}
-                {r.capUnit}
+                {r.capacitance != null ? `${r.capacitance}${r.capUnit ?? ''}` : null}
               </TableCell>
-              <TableCell>{r.voltageDc}V</TableCell>
-              <TableCell>{r.leadSpacingMm}mm</TableCell>
+              <TableCell>{r.voltageDc != null ? `${r.voltageDc}V` : null}</TableCell>
+              <TableCell>{r.leadSpacingMm != null ? `${r.leadSpacingMm}mm` : null}</TableCell>
               <TableCell>
                 <QtyBadge qty={r.quantity} />
               </TableCell>

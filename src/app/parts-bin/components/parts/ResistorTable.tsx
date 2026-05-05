@@ -28,9 +28,9 @@ export function ResistorTable({ rows }: { rows: PartRow[] }) {
         ) : (
           rows.map((r) => (
             <TableRow key={r.id}>
-              <TableCell>{r.resistance}</TableCell>
-              <TableCell>{r.resistorUnit}</TableCell>
-              <TableCell>{r.watts}W</TableCell>
+              <TableCell>{r.resistance ?? '-'}</TableCell>
+              <TableCell>{r.resistorUnit ?? '-'}</TableCell>
+              <TableCell>{r.watts != null ? `${r.watts}W` : '-'}</TableCell>
               <TableCell>
                 <QtyBadge qty={r.quantity} />
               </TableCell>

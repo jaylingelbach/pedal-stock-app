@@ -63,7 +63,7 @@ export function PartsBin() {
             asChild
             className="bg-black text-white [a]:hover:bg-pink-500 [a]:hover:text-primary"
           >
-            <Link href="/parts-inventory">+ Add Part</Link>
+            <Link href="/add-parts">+ Add Part</Link>
           </Button>
         </div>
 
@@ -123,7 +123,7 @@ export function PartsBin() {
               {parts.length === 0 ? (
                 <p className="text-center text-muted-foreground py-16">
                   No parts in stock yet.{' '}
-                  <Link href="/parts-inventory" className="underline">
+                  <Link href="/add-parts" className="underline">
                     Add your first part.
                   </Link>
                 </p>
