@@ -1,11 +1,13 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Poppins } from 'next/font/google';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { trpc } from '@/trpc/client';
+import { toast } from 'sonner';
 import { TypeSection } from './parts/TypeSection';
 import { ResistorTable } from './parts/ResistorTable';
 import { CapacitorTable } from './parts/CapacitorTable';
@@ -13,19 +15,21 @@ import { TransistorTable } from './parts/TransistorTable';
 import { DiodeTable } from './parts/DiodeTable';
 import { IcTable } from './parts/IcTable';
 import { PotentiometerTable } from './parts/PotentiometerTable';
-import { Loader2 } from 'lucide-react';
+import { PartsBinSkeleton } from './parts/PartsBinSkeleton';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] });
 
 export function PartsBin() {
   const getAllPartsQuery = trpc.parts.getAllParts.useQuery();
-  if (!getAllPartsQuery.data) {
-    return (
-      <>
-        <Loader2 className="animate-spin" />
-        Adding...
-      </>
-    );
+
+  useEffect(() => {
+    if (getAllPartsQuery.isError) {
+      toast.error('Failed to load parts. Please try again.');
+    }
+  }, [getAllPartsQuery.isError]);
+
+  if (getAllPartsQuery.isPending || getAllPartsQuery.isError) {
+    return <PartsBinSkeleton />;
   }
 
   const parts = getAllPartsQuery.data.map((item) => {
@@ -35,15 +39,15 @@ export function PartsBin() {
   });
 
   const byType = {
-    resistor: parts.filter((p) => p.type === 'resistor'),
-    capacitor: parts.filter((p) => p.type === 'capacitor'),
-    transistor: parts.filter((p) => p.type === 'transistor'),
-    diode: parts.filter((p) => p.type === 'diode'),
-    ic: parts.filter((p) => p.type === 'ic'),
-    potentiometer: parts.filter((p) => p.type === 'potentiometer')
+    resistor: parts.filter((part) => part.type === 'resistor'),
+    capacitor: parts.filter((part) => part.type === 'capacitor'),
+    transistor: parts.filter((part) => part.type === 'transistor'),
+    diode: parts.filter((part) => part.type === 'diode'),
+    ic: parts.filter((part) => part.type === 'ic'),
+    potentiometer: parts.filter((part) => part.type === 'potentiometer')
   };
 
-  const totalQty = parts.reduce((sum, p) => sum + p.quantity, 0);
+  const totalQty = parts.reduce((sum, part) => sum + part.quantity, 0);
 
   return (
     <div className="min-h-screen bg-[#F4F4F0] flex justify-center">
@@ -57,7 +61,7 @@ export function PartsBin() {
           </Link>
           <Button
             asChild
-            className="bg-black text-white hover:bg-pink-400 hover:text-primary"
+            className="bg-black text-white [a]:hover:bg-pink-500 [a]:hover:text-primary"
           >
             <Link href="/parts-inventory">+ Add Part</Link>
           </Button>

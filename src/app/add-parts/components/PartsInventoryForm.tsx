@@ -226,7 +226,7 @@ export function AddPartsForm() {
             <Button
               type="submit"
               size="lg"
-              className="text-base w-full bg-black text-white hover:bg-pink-400 hover:text-primary"
+              className="bg-black text-white [a]:hover:bg-pink-400 [a]:hover:text-primary"
               disabled={addPartMutation.isPending}
             >
               {addPartMutation.isPending ? (
