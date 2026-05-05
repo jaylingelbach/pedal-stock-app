@@ -41,10 +41,14 @@ export function PotentiometerTable({ rows }: { rows: PartRow[] }) {
           rows.map((r) => (
             <TableRow key={r.id}>
               <TableCell className="capitalize">{r.potCategory}</TableCell>
-              <TableCell>{r.resistance != null ? `${r.resistance}kΩ` : '-'}</TableCell>
+              <TableCell>
+                {r.resistance != null ? `${r.resistance}kΩ` : '-'}
+              </TableCell>
               <TableCell className="capitalize">{r.taper}</TableCell>
               <TableCell className="capitalize">
-                {r.shaftType} {r.shaftDiameter != null ? `${r.shaftDiameter}mm` : '-'}
+                {r.shaftType != null && r.shaftDiameter != null
+                  ? `${r.shaftType} ${r.shaftDiameter}mm`
+                  : '-'}
               </TableCell>
               <TableCell className="capitalize">{r.terminalType}</TableCell>
               <TableCell>
