@@ -25,6 +25,7 @@ const TAB_LABELS = [
  * @returns A JSX element that renders the parts bin loading skeleton.
  */
 export function PartsBinSkeleton() {
+  const businessName = process.env.NEXT_PUBLIC_BUSINESS_NAME ?? 'Parts';
   return (
     <div className="min-h-screen bg-[#F4F4F0] flex justify-center">
       <div className="w-full max-w-4xl px-4 py-8 lg:py-12 space-y-8">
@@ -32,7 +33,7 @@ export function PartsBinSkeleton() {
         <div className="flex items-center justify-between">
           <Link href="/">
             <span className={cn('text-2xl font-semibold', poppins.className)}>
-              {process.env.NEXT_PUBLIC_BUSINESS_NAME} Inventory
+              {businessName} Inventory
             </span>
           </Link>
           <Button
